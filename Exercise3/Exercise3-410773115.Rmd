@@ -71,8 +71,7 @@ hwData<-gs_read(gsLMSHabit,ws="作業上傳")
 資料的Timestamp為台灣時間，請將Timestamp變數設定成為Date/Time類型（即POSIXct)且時區是"Asia/Taipei"。（hint: `lubridate::mdy_hms()`）
 ```{r ans21}
 library(lubridate)
-hwData$Timestamp<-mdy_hms(hwData$Timestamp)
-as.POSIXct(hwData$Timestamp,tz="Asia/Taipei")
+hwData$Timestamp<-mdy_hms(hwData$Timestamp, tz = "Asia/Taipei")
 ```
 
 ### 2.2
@@ -80,15 +79,15 @@ as.POSIXct(hwData$Timestamp,tz="Asia/Taipei")
 
 ```{r ans22}
 library(lubridate)
-hwData$deadline<-ymd_hms("2018-10-24 00:00:00",tz="Asia/Taipei")
+deadline<-ymd_hms("2018-10-24 00:00:00",tz="Asia/Taipei")
 ```
 
 ### 2.3
 將`deadline`減去`hwData$Timestap`你會得到一個向量物件，其class為difftime。它的值為兩個Date/Time差了多少秒,但這並不容易理解。使用`difftime()`算出每個作業交件提早了多少**天**, 並存在`hwData$early`裡。
 
 ```{r ans23}
-x<-as.POSIXct (hwData$Timestamp,tz="Asis/Taipei")
-y<-as.POSIXct (hwData$deadline,tz="Asia/Taipei")
+x<-as.POSIXct (hwData$Timestamp,tz="Asia/Taipei")
+y<-as.POSIXct (deadline,tz="Asia/Taipei")
 hwData$early<-difftime(y,x,units = "days")
 ```
 
@@ -103,7 +102,7 @@ hwData$early<-round(hwData$early,digits = 0)
 作業1（即作業代碼為"hw1"）準時交的人中，他們的提早天數分佈如何？請使用`table()`呈現。
 
 ```{r ans25}
-early<-hwData$early[hwData$作業代碼== "hw1" ]
+early<-hwData$early[hwData$作業代碼 == "hw1"]
 table(early)
 ```
 
